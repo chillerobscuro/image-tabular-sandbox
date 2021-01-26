@@ -49,8 +49,6 @@ class MixedRegression(pl.LightningModule):
         self.num_workers = num_workers
         self.batch_size = batch_size
         self.relu = nn.ReLU()
-        self.bn = nn.BatchNorm1d(num_features=10)
-        self.bn2 = nn.BatchNorm1d(num_features=5)
 
         # set up pretrained resnet, filter down to 5 outputs to match our 5 tabular outputs
         backbone = models.resnet50(pretrained=True)
@@ -73,13 +71,10 @@ class MixedRegression(pl.LightningModule):
         img = self.translate_layer(img)
 
         tab = self.ln4(tab)
-        tab = self.bn(tab)
         tab = self.relu(tab)
         tab = self.ln5(tab)
-        tab = self.bn(tab)
         tab = self.relu(tab)
         tab = self.ln6(tab)
-        tab = self.bn(tab)
         tab = self.relu(tab)
 
         x = torch.cat((img, tab), dim=1)
