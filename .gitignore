@@ -1,0 +1,5 @@
+data/
+lightning_logs/
+venv/
+.idea/
+lr_find_temp.ckpt
